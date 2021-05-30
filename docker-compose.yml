@@ -14,7 +14,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'password'
     ports:
       # <Port exposed> : < MySQL Port running inside container>
-      - '3306:3306'
+      - '3308:3306'
     expose:
       # Opens port 3306 on the container
       - '3306'
@@ -22,6 +22,15 @@ services:
     volumes:
       - ProyectoFinal:/var/lib/mysql
       - ./EmpleadosDump/:/docker-entrypoint-initdb.d/
-# Names our volume
+  notebook:
+    container_name: python_notebook
+    build:
+      context: ./jupyter-notebook-docker
+    ports:
+      - "8888:8888"
+    depends_on:
+      - db
+    links:
+      - db
 volumes:
   ProyectoFinal:

@@ -1,0 +1,2 @@
+RUN iptables -t filter -A INPUT -p tcp -i docker0 --dport 3306 -j ACCEPT
+RUN iptables -t filter -A OUTPUT -p tcp -o docker0 --dport 3306 -j ACCEPT
