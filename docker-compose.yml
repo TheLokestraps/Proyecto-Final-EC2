@@ -28,9 +28,26 @@ services:
       context: ./jupyter-notebook-docker
     ports:
       - "8888:8888"
+    volumes:
+      - ./jupyter-notebook-docker/Graficas/:/home/jovyan/AquiestalaGrafica/
     depends_on:
       - db
     links:
       - db
+  dash:
+    build: ./Dash
+    container_name: dash
+    command: python Grafica.py
+    restart: always
+    volumes:
+      - ./Dash/Graficas:/Dash/Graficas/
+    ports:
+      - '8050:8050'
+    depends_on: 
+      - db
+      - notebook
+    links:
+      - "db"
+      - "notebook"
 volumes:
   ProyectoFinal:
